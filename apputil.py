@@ -38,10 +38,9 @@ def task_1():
     """Return a list of columns, sorted such that first column has least missing values"""
     s = df_bellevue.copy()
     #change the genders that are not M or W to missing values
-    s['gender'].fillna('?', inplace=True)
-    s['gender'].fillna('g', inplace=True)
-    s['gender'].fillna('h', inplace=True)
-    #identify number of missing values
+    valid_genders = ['m', 'w']
+    # Replace non valid genders with NAs
+    s.loc[~s['gender'].str.lower().isin(valid_genders), 'gender'] = pd.NA
     id_missing = s.isna().sum()
     #sort the missing values
     sort_id_missing = id_missing.sort_values()
@@ -76,4 +75,4 @@ def task_4():
     common_profs = s['profession'].value_counts()
     #Isolate the top 5
     top_5 = common_profs.head(5)
-    return top_5
+    return top_5.index.tolist()
