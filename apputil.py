@@ -30,8 +30,13 @@ def to_binary(n):
         binary_num = x[2:]
         return binary_num
 
-def task_1(s):
+
+url = 'https://github.com/melaniewalsh/Intro-Cultural-Analytics/raw/master/book/data/bellevue_almshouse_modified.csv'
+df_bellevue = pd.read_csv(url)
+
+def task_1():
     """Return a list of columns, sorted such that first column has least missing values"""
+    s = df_bellevue.copy()
     #change the genders that are not M or W to missing values
     s['gender'].fillna('?', inplace=True)
     s['gender'].fillna('g', inplace=True)
@@ -43,8 +48,9 @@ def task_1(s):
     #turn into a list and return final product
     return sort_id_missing.index.tolist()
 
-def task_2(s):
+def task_2():
     """Return a DataFrame with two columns: year and total number of immigrant admissions"""
+    s = df_bellevue.copy()
     # Ensure 'date_in' is datetime and extract year
     s['date_in'] = pd.to_datetime(s['date_in'])
     s['year'] = s['date_in'].dt.year
@@ -52,8 +58,9 @@ def task_2(s):
     admissions = s.groupby('year').size().reset_index(name='total_admissions')
     return admissions
 
-def task_3(s):
+def task_3():
     """Return a series with index for each gender and values is average age for each gender"""
+    s = df_bellevue.copy()
     # Only use valid genders ('m', 'w'), ignore others if present
     valid_genders = ['m', 'w']
     #Filter out non 'valid' genders
@@ -62,8 +69,11 @@ def task_3(s):
     avg_age = filtered.groupby('gender')['age'].mean()
     return avg_age
 
-def task_4(s):
+def task_4():
     """5 most common professions"""
+    s = df_bellevue.copy()
+    #Count all professions
     common_profs = s['profession'].value_counts()
+    #Isolate the top 5
     top_5 = common_profs.head(5)
     return top_5
