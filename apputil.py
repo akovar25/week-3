@@ -4,7 +4,7 @@ import pandas as pd
 
 # update/add code below ...
 
-def fib(n):
+def fibonacci(n):
     """Return the nth Fibonacci number."""
     # Handle base cases
     if n <= 0:
@@ -30,7 +30,7 @@ def to_binary(n):
         binary_num = x[2:]
         return binary_num
 
-def task_i(s):
+def task_1(s):
     """Return a list of columns, sorted such that first column has least missing values"""
     #change the genders that are not M or W to missing values
     s['gender'].fillna('?', inplace=True)
@@ -43,7 +43,7 @@ def task_i(s):
     #turn into a list and return final product
     return sort_id_missing.index.tolist()
 
-def task_ii(s):
+def task_2(s):
     """Return a DataFrame with two columns: year and total number of immigrant admissions"""
     # Ensure 'date_in' is datetime and extract year
     s['date_in'] = pd.to_datetime(s['date_in'])
@@ -52,7 +52,7 @@ def task_ii(s):
     admissions = s.groupby('year').size().reset_index(name='total_admissions')
     return admissions
 
-def task_iii(s):
+def task_3(s):
     """Return a series with index for each gender and values is average age for each gender"""
     # Only use valid genders ('m', 'w'), ignore others if present
     valid_genders = ['m', 'w']
@@ -62,7 +62,7 @@ def task_iii(s):
     avg_age = filtered.groupby('gender')['age'].mean()
     return avg_age
 
-def task_iv(s):
+def task_4(s):
     """5 most common professions"""
     common_profs = s['profession'].value_counts()
     top_5 = common_profs.head(5)
